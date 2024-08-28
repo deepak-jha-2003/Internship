@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Control Panel</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Device Control Panel</h1>
+
+        {% for device, status in device_status.items() %}
+            <form class="device-form" data-device="{{ device }}">
+                <label>{{ device.replace('_', ' ').capitalize() }}:</label>
+                <select>
+                    <option value="on" {{ 'selected' if status == 'on' else '' }}>On</option>
+                    <option value="off" {{ 'selected' if status == 'off' else '' }}>Off</option>
+                </select>
+            </form>
+        {% endfor %}
+
+        <div id="result">
+            <p>Updated Total Energy Consumption: <strong id="energy">Loading...</strong> kW</p>
+        </div>
+
+        <a href="/">Back to Dashboard</a>
+    </div>
+
+    <script src="{{ url_for('static', filename='scripts.js') }}"></script>
+</body>
+</html>
